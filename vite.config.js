@@ -5,4 +5,5 @@ import react from '@vitejs/plugin-react-swc'
 // may need to set base
 export default defineConfig({
   plugins: [react()],
+  base: '/guitar-quiz/',
 })
