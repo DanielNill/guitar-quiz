@@ -11,18 +11,41 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3main
-      
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
         run: npm run build
+      - name: Setup Pages
+        uses: action/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: './dist'
+      - name: Deploy to Github pages
+        id: deployment
+        uses: actions/deploy-pages@v1
