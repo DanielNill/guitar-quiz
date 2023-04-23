@@ -24,6 +24,7 @@ export default function QuizPage({ timeLimit, questionCategories }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setIsAnswered(true)
     let answer = e.target.value
     if (answer === correctAnswer) {
       localStorage.setItem(`stats:${timeLimit}:correct`, Number(localStorage.getItem(`stats:${timeLimit}:correct`)) + 1)
@@ -63,7 +64,7 @@ export default function QuizPage({ timeLimit, questionCategories }) {
     <div>
       {!isAnswered && ( <div>Time Remaining: {counter}</div> )}
       {isAnswered && isCorrect && ( <div className="green">Correct!</div> )}
-      {isAnswered && !isCorrect && ( <div className="red">Incorrect!</div> )}
+      {isAnswered && !isCorrect && ( <div className="red">Incorrect! The correct answer was {correctAnswer}</div> )}
 
       <div>{question}</div>
       <span className="buttons-container">
