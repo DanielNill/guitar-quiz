@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { scaleNumbers, scaleQualities, specificScaleQualities } from './questions'
 
-export default function QuizPage({ timeLimit, questionCategories }) {
+export default function QuizPage({ timeLimit, questionCategories, streakChallenge}) {
   const [question, setQuestion] = useState(null)
   const [options, setOptions] = useState([])
   const [correctAnswer, setCorrectAnswer] = useState(null)
@@ -9,6 +9,8 @@ export default function QuizPage({ timeLimit, questionCategories }) {
   const [isAnswered, setIsAnswered] = useState(false)
   const [counter, setCounter] = useState(timeLimit/1000)
   const [answersDisabled, setAnswersDisabled] = useState(false)
+  let streak = 0
+
   let questions = []
   questionCategories.forEach((cat) => {
     if (cat === 'scaleNumbers') {
@@ -36,9 +38,14 @@ export default function QuizPage({ timeLimit, questionCategories }) {
     setIsAnswered(true)
     let answer = e.target.value
     if (answer === correctAnswer) {
-      localStorage.setItem(`stats:${timeLimit}:correct`, Number(localStorage.getItem(`stats:${timeLimit}:correct`)) + 1)
+      localStorage.setItem('correct', Number(localStorage.getItem('correct')) + 1)
       setIsCorrect(true)
       setAnswersDisabled(true)
+      streak++
+      if (streak >= streakChallenge && streakChallenge > 0) {
+        alert(`You've answered ${streak} questions in a row correctly!`)
+        endQuiz()
+      }
       setTimeout(() => { getRandomQuestion() }, 2000)
     } else {
       handleWrongAnswer()
@@ -49,7 +56,7 @@ export default function QuizPage({ timeLimit, questionCategories }) {
     setIsAnswered(true)
     setIsCorrect(false)
     setAnswersDisabled(true)
-    localStorage.setItem(`stats:${timeLimit}:incorrect`, Number(localStorage.getItem(`stats:${timeLimit}:incorrect`)) + 1)
+    localStorage.setItem('incorrect', Number(localStorage.getItem('incorrect')) + 1)
     setTimeout(() => { getRandomQuestion() }, 2000)
   }
 
