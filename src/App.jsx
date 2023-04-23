@@ -5,17 +5,21 @@ import './App.css'
 function App() {
   const [startQuiz, setStartQuiz] = useState(false)
   const [timeLimit, setTimeLimit] = useState(localStorage.getItem('timeLimit') || 5000)
-  const [questionCategories, setQuestionCategories] = useState(['scaleNumbers'])
-
+  const [scaleNumbers, setScaleNumbers] = useState(true)
+  const [scaleQualities, setScaleQualities] = useState(false)
+  const [specificScaleQualities, setSpecificScaleQualities] = useState(false)
+  const questionCategoryOptions = ['scaleNumbers', 'scaleQualities', 'specificScaleQualities']
 
   const updateOptions = (e) => {
     if (e.target.type === 'range') {
       setTimeLimit(e.target.value)
     } else if (e.target.type === 'checkbox') {
-      if (e.target.checked) {
-        setQuestionCategories([...questionCategories, e.target.value])
-      } else {
-        setQuestionCategories(questionCategories.filter((cat) => cat !== e.target.value))
+      if (e.target.name === 'scaleNumbers') {
+        setScaleNumbers(e.target.checked)
+      } else if (e.target.name === 'scaleQualities') {
+        setScaleQualities(e.target.checked)
+      } else if (e.target.name === 'specificScaleQualities') {
+        setSpecificScaleQualities(e.target.checked)
       }
     }
   }
@@ -31,7 +35,7 @@ function App() {
   }
 
   const handleLaunchQuizClick = () => {
-    if (questionCategories.length === 0) {
+    if (!scaleNumbers && !scaleQualities && !specificScaleQualities) {
       alert('Please select at least one question category.')
       return
     }
@@ -40,7 +44,7 @@ function App() {
 
   if (startQuiz) {
     return (
-      <QuizPage timeLimit={timeLimit} questionCategories={questionCategories} />
+      <QuizPage timeLimit={timeLimit} questionCategories={questionCategoryOptions.filter((cat) => eval(cat))}/>
     )
   } else {
     return (
@@ -51,8 +55,12 @@ function App() {
         <div className="options-container">
           <p>Time Limit: { timeLimit/1000 } seconds</p>
           <input type="range" min="2000" max="10000" step="1000" value={ timeLimit } className="slider" id="myRange" onChange={updateOptions}/>
-          <input type="checkbox" checked={questionCategories.includes('scaleNumbers')} name="scale-numbers" value="scaleNumbers" onChange={updateOptions} />
-          <label htmlFor="scale-numbers">Scale Numbers</label><br></br>
+          {questionCategoryOptions.map((cat) => (
+            <span key={cat}>
+              <input type="checkbox" checked={eval(cat)} name={cat} value={cat} onChange={updateOptions} />
+              <label htmlFor={cat}>{cat}</label><br></br>
+            </span>
+          ))}
         </div>
         <div className="stats-container">
           <h2>Stats</h2>

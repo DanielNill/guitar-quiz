@@ -98,3 +98,21 @@ export const scaleNumbers = [
   { question: 'What note is VI on the G scale?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'E' },
   { question: 'What note is VII on the G scale?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'F' },
 ];
+
+export const scaleQualities = [
+  { question: 'What are the qualities of the Major scale?', answers: ['♮3 ♮7', '♭3 ♭5', '♭3 ♭5 ♭♭7', '♮3 ♭7', '♭3 ♭5 ♭7'], correctAnswer: '♮3 ♮7' },
+  { question: 'What are the qualities of the Minor scale?', answers: ['♮3 ♮7', '♭3 ♭5 ♭♭7', '♭3 ♭5', '♮3 ♭7', '♭3 ♭5 ♭7'], correctAnswer: '♭3 ♭5' },
+  { question: 'What are the qualities of the Dominant 7th scale?', answers: ['♮3 ♮7', '♭3 ♭5 ♭♭7', '♭3 ♭5', '♮3 ♭7', '♭3 ♭5 ♭7'], correctAnswer: '♮3 ♭7' },
+  { question: 'What are the qualities of the Diminished scale?', answers: ['♮3 ♮7', '♭3 ♭5 ♭♭7', '♭3 ♭5', '♮3 ♭7', '♭3 ♭5 ♭7'], correctAnswer: '♭3 ♭5 ♭♭7' },
+  { question: 'What are the qualities of the Half Diminished scale?', answers: ['♮3 ♮7', '♭3 ♭5 ♭♭7', '♭3 ♭5', '♮3 ♭7', '♭3 ♭5 ♭7'], correctAnswer: '♭3 ♭5 ♭7' },
+];
+
+export const specificScaleQualities = [
+  { question: 'What is flatted on the A Minor scale?', answers: ['A & C', 'B & D', 'C & E', 'D & F', 'E & G'], correctAnswer: 'C & E' },
+  { question: 'What is flatted on the B Minor scale?', answers: ['B & D', 'C & E', 'D & F', 'E & G', 'F & A'], correctAnswer: 'D & F' },
+  { question: 'What is flatted on the C Minor scale?', answers: ['C & E', 'D & F', 'E & G', 'F & A', 'G & B'], correctAnswer: 'E & G' },
+  { question: 'What is flatted on the D Minor scale?', answers: ['D & F', 'E & G', 'F & A', 'G & B', 'A & C'], correctAnswer: 'F & A' },
+  { question: 'What is flatted on the E Minor scale?', answers: ['E & G', 'F & A', 'G & B', 'A & C', 'B & D'], correctAnswer: 'G & B' },
+  { question: 'What is flatted on the F Minor scale?', answers: ['F & A', 'G & B', 'A & C', 'B & D', 'C & E'], correctAnswer: 'A & C' },
+  { question: 'What is flatted on the G Minor scale?', answers: ['G & B', 'A & C', 'B & D', 'C & E', 'D & F'], correctAnswer: 'B & D' },
+];

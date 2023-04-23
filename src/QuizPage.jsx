@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { scaleNumbers } from './questions'
+import { scaleNumbers, scaleQualities, specificScaleQualities } from './questions'
 
 export default function QuizPage({ timeLimit, questionCategories }) {
   const [question, setQuestion] = useState(null)
@@ -9,10 +9,19 @@ export default function QuizPage({ timeLimit, questionCategories }) {
   const [isAnswered, setIsAnswered] = useState(false)
   const [counter, setCounter] = useState(timeLimit/1000)
   const [answersDisabled, setAnswersDisabled] = useState(false)
-  let timeout
+  let questions = []
+  questionCategories.forEach((cat) => {
+    if (cat === 'scaleNumbers') {
+      questions = questions.concat(scaleNumbers)
+    } else if (cat === 'scaleQualities') {
+      questions = questions.concat(scaleQualities)
+    } else if (cat === 'specificScaleQualities') {
+      questions = questions.concat(specificScaleQualities)
+    }
+  })
 
   const getRandomQuestion = () => {
-    const question = scaleNumbers[Math.floor(Math.random() * scaleNumbers.length)]
+    const question = questions[Math.floor(Math.random() * questions.length)]
     setQuestion(question.question)
     setCorrectAnswer(question.correctAnswer)
     setOptions(question.answers)
@@ -66,7 +75,7 @@ export default function QuizPage({ timeLimit, questionCategories }) {
       {isAnswered && isCorrect && ( <div className="green">Correct!</div> )}
       {isAnswered && !isCorrect && ( <div className="red">Incorrect! The correct answer was {correctAnswer}</div> )}
 
-      <div>{question}</div>
+      <div><h2>{question}</h2></div>
       <span className="buttons-container">
         {options.map((ans) => (
           <div key={ans}>
