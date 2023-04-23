@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import QuizPage from './QuizPage'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [startQuiz, setStartQuiz] = useState(false)
+  const [timeLimit, setTimeLimit] = useState(localStorage.getItem('timeLimit') || 5000)
+  const [questionCategories, setQuestionCategories] = useState(['scaleNumbers'])
 
-  return (
-    <>
+
+  const updateOptions = (e) => {
+    if (e.target.type === 'range') {
+      setTimeLimit(e.target.value)
+    } else if (e.target.type === 'checkbox') {
+      if (e.target.checked) {
+        setQuestionCategories([...questionCategories, e.target.value])
+      } else {
+        setQuestionCategories(questionCategories.filter((cat) => cat !== e.target.value))
+      }
+    }
+  }
+
+  const clearStats = () => {
+    if (confirm('Are you sure you want to clear your stats?') === true) {
+      let correct = localStorage.getItem(`stats:${timeLimit}:correct`)
+      let incorrect = localStorage.getItem(`stats:${timeLimit}:incorrect`)
+      localStorage.removeItem(`stats:${timeLimit}:correct`)
+      localStorage.removeItem(`stats:${timeLimit}:incorrect`)
+      setTimeLimit(timeLimit + 1)
+    }
+  }
+
+  const handleLaunchQuizClick = () => {
+    if (questionCategories.length === 0) {
+      alert('Please select at least one question category.')
+      return
+    }
+    setStartQuiz(true)
+  }
+
+  if (startQuiz) {
+    return (
+      <QuizPage timeLimit={timeLimit} questionCategories={questionCategories} />
+    )
+  } else {
+    return (
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Welcome to 🎸 Quiz!</h1>
+        <p>Are you ready to rock?</p>
+        <button onClick={handleLaunchQuizClick}>Launch Quiz</button>
+        <div className="options-container">
+          <p>Time Limit: { timeLimit/1000 } seconds</p>
+          <input type="range" min="2000" max="10000" step="1000" value={ timeLimit } className="slider" id="myRange" onChange={updateOptions}/>
+          <input type="checkbox" checked={questionCategories.includes('scaleNumbers')} name="scale-numbers" value="scaleNumbers" onChange={updateOptions} />
+          <label htmlFor="scale-numbers">Scale Numbers</label><br></br>
+        </div>
+        <div className="stats-container">
+          <h2>Stats</h2>
+          <p>% Correct: { localStorage.getItem(`stats:${timeLimit}:correct`) / ((localStorage.getItem(`stats:${timeLimit}:correct`) + localStorage.getItem(`stats:${timeLimit}:incorrect`)) || 1) * 100 }</p>
+          <p>Correct: { localStorage.getItem(`stats:${timeLimit}:correct`) }</p>
+          <p>Incorrect: { localStorage.getItem(`stats:${timeLimit}:incorrect`) }</p>
+          <button onClick={clearStats}>Clear Stats</button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
+  }
 }
 
 export default App
