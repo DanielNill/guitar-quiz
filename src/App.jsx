@@ -8,10 +8,11 @@ function App() {
   const [scaleNumbers, setScaleNumbers] = useState(true)
   const [scaleQualities, setScaleQualities] = useState(false)
   const [specificScaleQualities, setSpecificScaleQualities] = useState(false)
-  const questionCategoryOptions = ['scaleNumbers', 'scaleQualities', 'specificScaleQualities']
+  const [strings, setStrings] = useState(false)
   const [correct, setCorrect] = useState(localStorage.getItem('correct') || 0)
   const [incorrect, setIncorrect] = useState(localStorage.getItem('incorrect') || 0)
   const [streakChallenge, setStreakChallenge] = useState(Number(localStorage.getItem('streakChallenge')) || 0)
+  const questionCategoryOptions = ['scaleNumbers', 'scaleQualities', 'specificScaleQualities', 'strings']
 
   const updateOptions = (e) => {
     if (e.target.name === 'timeLimit') {
@@ -26,6 +27,8 @@ function App() {
         setScaleQualities(e.target.checked)
       } else if (e.target.name === 'specificScaleQualities') {
         setSpecificScaleQualities(e.target.checked)
+      } else if (e.target.name === 'strings') {
+        setStrings(e.target.checked)
       }
     }
   }
@@ -37,7 +40,7 @@ function App() {
   }
 
   const handleLaunchQuizClick = () => {
-    if (!scaleNumbers && !scaleQualities && !specificScaleQualities) {
+    if (!scaleNumbers && !scaleQualities && !specificScaleQualities && !strings) {
       alert('Please select at least one question category.')
       return
     }

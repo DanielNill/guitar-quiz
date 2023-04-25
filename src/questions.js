@@ -137,3 +137,12 @@ export const specificScaleQualities = [
   { question: 'What is flatted on the F Half Diminished scale?', answers: ['A, C, & E', 'B, D, & F', 'C, E, & G', 'D, F, & A', 'E, G, & B'], correctAnswer: 'A, C, & E' },
   { question: 'What is flatted on the G Half Diminished scale?', answers: ['A, C, & E', 'B, D, & F', 'C, E, & G', 'D, F, & A', 'E, G, & B'], correctAnswer: 'B, D, & F' },
 ];
+
+export const strings = [
+  { question: 'What is the 1st string on a guitar?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'E' },
+  { question: 'What is the 2nd string on a guitar?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'B' },
+  { question: 'What is the 3rd string on a guitar?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'G' },
+  { question: 'What is the 4th string on a guitar?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'D' },
+  { question: 'What is the 5th string on a guitar?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'A' },
+  { question: 'What is the 6th string on a guitar?', answers: ['A', 'B', 'C', 'D', 'E', 'F', 'G'], correctAnswer: 'E' },
+];

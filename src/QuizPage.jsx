@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { scaleNumbers, scaleQualities, specificScaleQualities } from './questions'
+import { scaleNumbers, scaleQualities, specificScaleQualities, strings } from './questions'
 
 export default function QuizPage({ timeLimit, questionCategories, streakChallenge}) {
   const [question, setQuestion] = useState(null)
@@ -19,6 +19,8 @@ export default function QuizPage({ timeLimit, questionCategories, streakChalleng
       questions = questions.concat(scaleQualities)
     } else if (cat === 'specificScaleQualities') {
       questions = questions.concat(specificScaleQualities)
+    } else if (cat === 'strings') {
+      questions = questions.concat(strings)
     }
   })
 
@@ -37,6 +39,7 @@ export default function QuizPage({ timeLimit, questionCategories, streakChalleng
     e.preventDefault()
     setIsAnswered(true)
     let answer = e.target.value
+    console.log(`${question} answer: ${answer} correctAnswer: ${correctAnswer}`)
     if (answer === correctAnswer) {
       localStorage.setItem('correct', Number(localStorage.getItem('correct')) + 1)
       setIsCorrect(true)
