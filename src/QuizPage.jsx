@@ -9,19 +9,12 @@ export default function QuizPage({ timeLimit, questionCategories, streakChalleng
   const [isAnswered, setIsAnswered] = useState(false)
   const [counter, setCounter] = useState(timeLimit/1000)
   const [answersDisabled, setAnswersDisabled] = useState(false)
+
   let streak = 0
 
   let questions = []
   questionCategories.forEach((cat) => {
-    if (cat === 'scaleNumbers') {
-      questions = questions.concat(scaleNumbers)
-    } else if (cat === 'scaleQualities') {
-      questions = questions.concat(scaleQualities)
-    } else if (cat === 'specificScaleQualities') {
-      questions = questions.concat(specificScaleQualities)
-    } else if (cat === 'strings') {
-      questions = questions.concat(strings)
-    }
+    questions = questions.concat(eval(cat))
   })
 
   const getRandomQuestion = () => {
