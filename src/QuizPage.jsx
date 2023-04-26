@@ -14,7 +14,15 @@ export default function QuizPage({ timeLimit, questionCategories, streakChalleng
 
   let questions = []
   questionCategories.forEach((cat) => {
-    questions = questions.concat(eval(cat))
+    if (cat === 'scaleNumbers') {
+      questions = questions.concat(scaleNumbers)
+    } else if (cat === 'scaleQualities') {
+      questions = questions.concat(scaleQualities)
+    } else if (cat === 'specificScaleQualities') {
+      questions = questions.concat(specificScaleQualities)
+    } else if (cat === 'strings') {
+      questions = questions.concat(strings)
+    }
   })
 
   const getRandomQuestion = () => {
