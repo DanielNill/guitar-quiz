@@ -6,13 +6,15 @@ function App() {
   const [startQuiz, setStartQuiz] = useState(false)
   const [timeLimit, setTimeLimit] = useState(localStorage.getItem('timeLimit') || 5000)
   const [scaleNumbers, setScaleNumbers] = useState(true)
-  const [scaleQualities, setScaleQualities] = useState(false)
-  const [specificScaleQualities, setSpecificScaleQualities] = useState(false)
-  const [strings, setStrings] = useState(false)
+  const [scaleModes, setScaleModes] = useState(true)
+  const [specificScaleModes, setSpecificScaleModes] = useState(true)
+  const [strings, setStrings] = useState(true)
+  const [basicFrets, setBasicFrets] = useState(true)
+  const [advancedFrets, setAdvancedFrets] = useState(true)
   const [correct, setCorrect] = useState(localStorage.getItem('correct') || 0)
   const [incorrect, setIncorrect] = useState(localStorage.getItem('incorrect') || 0)
   const [streakChallenge, setStreakChallenge] = useState(Number(localStorage.getItem('streakChallenge')) || 0)
-  const questionCategoryOptions = ['scaleNumbers', 'scaleQualities', 'specificScaleQualities', 'strings']
+  const questionCategoryOptions = ['scaleNumbers', 'scaleModes', 'specificScaleModes', 'strings', 'basicFrets', 'advancedFrets']
 
   const updateOptions = (e) => {
     if (e.target.name === 'timeLimit') {
@@ -47,6 +49,11 @@ function App() {
     setStartQuiz(true)
   }
 
+  const titlize = (str) => {
+    str = str.replace(/([A-Z])/g, ' $1')
+    return str.charAt(0).toUpperCase() + str.slice(1)
+  }
+
   useEffect(() => {
     setCorrect(localStorage.getItem('correct'))
     setIncorrect(localStorage.getItem('incorrect'))
@@ -71,7 +78,7 @@ function App() {
           {questionCategoryOptions.map((cat) => (
             <span key={cat}>
               <input type="checkbox" checked={eval(cat)} name={cat} value={cat} onChange={updateOptions} />
-              <label htmlFor={cat}>{cat}</label><br></br>
+              <label htmlFor={cat}>{titlize(cat)}</label><br></br>
             </span>
           ))}
         </div>
