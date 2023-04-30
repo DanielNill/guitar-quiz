@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { scaleNumbers, scaleModes, specificScaleModes, strings, basicFrets, advancedFretsq } from './questions'
+import { scaleNumbers, scaleModes, specificScaleModes, strings, basicFrets, advancedFrets } from './questions'
 
 let questions = []
 let answeredQuestions = []
@@ -29,7 +29,7 @@ export default function QuizPage({ timeLimit, questionCategories, streakChalleng
     } else if (cat === 'basicFrets') {
       qs = qs.concat(basicFrets)
     } else if (cat === 'AdvancedFrets') {
-      qs = qs.concat(AdvancedFretsq)
+      qs = qs.concat(AdvancedFrets)
     }
   })
   questions = qs.filter((q) => !answeredQuestions.includes(q.question))
