@@ -224,3 +224,4 @@ export const advancedFrets = [
   { question: 'What is the 11th fret on the 6th string?', answers: ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'], correctAnswer: 'D#' },
 ];
 
+
