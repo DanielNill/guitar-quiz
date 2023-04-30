@@ -185,7 +185,7 @@ export const basicFrets = [
   { question: 'What is the 5th fret on the 6th string?', answers: ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'], correctAnswer: 'A' },
 ]
 
-export const advancedFrets = [
+export const advancedFretsq = [
   { question: 'What is the 6th fret on the 1st string?', answers: ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'], correctAnswer: 'A#' },
   { question: 'What is the 7th fret on the 1st string?', answers: ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'], correctAnswer: 'B' },
   { question: 'What is the 8th fret on the 1st string?', answers: ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'], correctAnswer: 'C' },
