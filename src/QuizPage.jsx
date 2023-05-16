@@ -3,7 +3,7 @@ import { scaleNumbers, scaleModes, specificScaleModes, strings, basicFrets, adva
 
 let questions = []
 let answeredQuestions = []
-export default function QuizPage({ timeLimit, questionCategories, streakChallenge}) {
+export default function QuizPage({ timeLimit, questionCategories }) {
   const [question, setQuestion] = useState(null)
   const [options, setOptions] = useState([])
   const [correctAnswer, setCorrectAnswer] = useState(null)
@@ -14,7 +14,6 @@ export default function QuizPage({ timeLimit, questionCategories, streakChalleng
   const [correctCount, setCorrectCount] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [questionsRemaining, setQuestionsRemaining] = useState(0)
-  let streak = 0
 
   let qs = []
   questionCategories.forEach((cat) => {
@@ -58,11 +57,6 @@ export default function QuizPage({ timeLimit, questionCategories, streakChalleng
       answeredQuestions.push(question)
       questions = questions.filter((q) => !answeredQuestions.includes(q.question))
       setQuestionsRemaining(questions.length)
-      streak++
-      if (streak >= streakChallenge && streakChallenge > 0) {
-        alert(`You've answered ${streak} questions in a row correctly!`)
-        endQuiz()
-      }
       setTimeout(() => { getRandomQuestion() }, 2000)
     } else {
       handleWrongAnswer()

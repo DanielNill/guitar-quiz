@@ -4,33 +4,35 @@ import './App.css'
 
 function App() {
   const [startQuiz, setStartQuiz] = useState(false)
-  const [timeLimit, setTimeLimit] = useState(localStorage.getItem('timeLimit') || 5000)
+  const [timeLimit, setTimeLimit] = useState(localStorage.getItem('timeLimit') || 7000)
+
   const [scaleNumbers, setScaleNumbers] = useState(true)
-  const [strings, setStrings] = useState(true)
-  const [correct, setCorrect] = useState(localStorage.getItem('correct') || 0)
-  const [incorrect, setIncorrect] = useState(localStorage.getItem('incorrect') || 0)
-  const [streakChallenge, setStreakChallenge] = useState(Number(localStorage.getItem('streakChallenge')) || 0)
   const [basicFrets, setBasicFrets] = useState(true)
   const [advancedFrets, setAdvancedFrets] = useState(true)
   const [scaleModes, setScaleModes] = useState(true)
   const [specificScaleModes, setSpecificScaleModes] = useState(true)
+  const [strings, setStrings] = useState(true)
+
+  const [correct, setCorrect] = useState(localStorage.getItem('correct') || 0)
+  const [incorrect, setIncorrect] = useState(localStorage.getItem('incorrect') || 0)
   const questionCategoryOptions = ['scaleNumbers', 'scaleModes', 'specificScaleModes', 'strings', 'basicFrets', 'advancedFrets'];
 
   const updateOptions = (e) => {
     if (e.target.name === 'timeLimit') {
       setTimeLimit(e.target.value)
-    } else if (e.target.name === 'streakChallenge') {
-      setStreakChallenge(e.target.value)
-      localStorage.setItem('streakChallenge', e.target.value)
     } else if (e.target.type === 'checkbox') {
       if (e.target.name === 'scaleNumbers') {
         setScaleNumbers(e.target.checked)
-      } else if (e.target.name === 'scaleQualities') {
-        setScaleQualities(e.target.checked)
-      } else if (e.target.name === 'specificScaleQualities') {
-        setSpecificScaleQualities(e.target.checked)
+      } else if (e.target.name === 'scaleModes') {
+        setScaleModes(e.target.checked)
+      } else if (e.target.name === 'specificScaleModes') {
+        setSpecificScaleModes(e.target.checked)
       } else if (e.target.name === 'strings') {
         setStrings(e.target.checked)
+      } else if (e.target.name === 'basicFrets') {
+        setBasicFrets(e.target.checked)
+      } else if (e.target.name === 'advancedFrets') {
+        setAdvancedFrets(e.target.checked)
       }
     }
   }
@@ -80,7 +82,7 @@ function App() {
 
   if (startQuiz) {
     return (
-      <QuizPage timeLimit={timeLimit} questionCategories={questionCategoryOptions.filter((cat) => getCategoryValue(cat))} streakChallenge={streakChallenge}/>
+      <QuizPage timeLimit={timeLimit} questionCategories={questionCategoryOptions.filter((cat) => getCategoryValue(cat))}/>
     )
   } else {
     return (
@@ -91,8 +93,6 @@ function App() {
         <div className="options-container">
           <p>Time Limit: { timeLimit/1000 } seconds</p>
           <input type="range" min="2000" max="10000" step="1000" value={ timeLimit } className="slider" name="timeLimit" onChange={updateOptions}/>
-          <p>Streak Challenge: { streakChallenge } in a row</p>
-          <input type="range" min="0" max="15" step="1" value={ streakChallenge } className="slider" name="streakChallenge" onChange={updateOptions}/>
           <p>Question Categories:</p>
           {questionCategoryOptions.map((cat) => (
             <span key={cat}>
