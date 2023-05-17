@@ -44,7 +44,7 @@ function App() {
   }
 
   const handleLaunchQuizClick = () => {
-    if (!scaleNumbers && !scaleQualities && !specificScaleQualities && !strings) {
+    if (!scaleNumbers && !scaleModes && !specificScaleModes && !strings && !basicFrets && !advancedFrets) {
       alert('Please select at least one question category.')
       return
     }
